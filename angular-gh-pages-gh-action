@@ -11,3 +11,14 @@ ng new angular21tour
     --> tailwind, claude ai,
 
 ng serve
+
+
+echo "# angular21tour" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/gnganapath/angular21tour.git
+git push -u origin main
+
+ng build - verify the prod dist folder location
