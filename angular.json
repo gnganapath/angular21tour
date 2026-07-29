@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "base": "dist/angular21tour",
+            "outputPath": "dist/angular21tour",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
