@@ -1,0 +1,13 @@
+ng version
+
+npm uninstall -g @angular/cli
+
+npm cache clean --force
+
+npm install -g @angular/cli  -- angular/core:21.2.0
+
+ng new angular21tour
+
+    --> tailwind, claude ai,
+
+ng serve
