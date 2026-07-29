@@ -1,52 +1,43 @@
-name: Deploy Angular to GitHub Pages
+name: Build and Deploy Angular App
 
 on:
   push:
     branches:
-      - main
+      - main  # Triggers the workflow on every push to the main branch
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  contents: write  # Gives the action permission to push to the gh-pages branch
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # 1. Fetch the source code from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      # 2. Install Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: npm
+          node-version: 22 # Match this to your local Node version
 
-      - run: npm ci
+      # 3. Install project dependencies cleanly
+      - name: Install Dependencies
+        run: npm ci
 
-      - run: npm run build -- --configuration production --base-href "/angular19tour/"
+      # 4. Run application tests (Optional, uncomment if you have unit tests)
+      # - name: Run Tests
+      #   run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-      - uses: actions/upload-pages-artifact@v3
+      # 5. Build the Angular production application
+      - name: Build Angular Application
+        run: npm run build -- --configuration=production --base-href=/YOUR_REPOSITORY_NAME/
+
+      # 6. Deploy the built files to the gh-pages branch
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist/angular19tour/browser
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    needs: build
-
-    permissions:
-      pages: write
-      id-token: write
-
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/YOUR_REPOSITORY_NAME/browser  # For Angular 17+, build output is inside a /browser subfolder
