@@ -40,4 +40,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/YOUR_REPOSITORY_NAME/browser  # For Angular 17+, build output is inside a /browser subfolder
+          publish_dir: ./dist/angular21tour/browser  # For Angular 17+, build output is inside a /browser subfolder
