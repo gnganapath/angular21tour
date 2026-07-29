@@ -33,7 +33,7 @@ jobs:
 
       # 5. Build the Angular production application
       - name: Build Angular Application
-        run: npm run build -- --configuration=production --base-href=/YOUR_REPOSITORY_NAME/
+        run: npm run build -- --configuration=production --base-href=/angular21tour/
 
       # 6. Deploy the built files to the gh-pages branch
       - name: Deploy to GitHub Pages
